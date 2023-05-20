@@ -1,0 +1,15 @@
+/.idea/.gitignore
+/.idea/EmojiReplace.Service.Python.iml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
+/assets/.ipynb_checkpoints/test-checkpoint.ipynb
+/assets/classification.ckpt
+/assets/classification.pt
+/assets/Emojich/pytorch_model.bin
+/assets/navec_hudlit_v1_12B_500K_300d_100q.tar
+/assets/segmentation.ckpt
+/assets/segmentation.pt
+/assets/test.ipynb
+/assets/test.jpg

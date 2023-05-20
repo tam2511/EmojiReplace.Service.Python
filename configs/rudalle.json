@@ -1,0 +1,8 @@
+{
+  "top_k": 2048,
+  "bs": 8,
+  "top_p": 0.995,
+  "device": "cuda",
+  "path": "/mnt/assets/models",
+  "name": "Emojich"
+}

@@ -1,0 +1,5 @@
+{
+  "device": "cuda",
+  "net_size": 224,
+  "path": "/mnt/assets/models/segmentation.pt"
+}
