@@ -42,7 +42,7 @@ class Handler(object):
                 except Exception:
                     embed_word = np.zeros((300,), dtype=np.float32)
                 embed += embed_word
-            self.embeds.append(embed)
+            self.embeds.append(embed / np.sqrt((embed * embed).sum()))
 
         self.embeds = np.stack(self.embeds)
 
@@ -60,9 +60,9 @@ class Handler(object):
             except Exception:
                 embed_word = np.zeros((300,), dtype=np.float32)
             query_embed += embed_word
-
-        class_dists = np.matmul(query_embed, self.embeds.T)[0]
-        qeury_class = self.config_classification['classes'][class_dists.argmax()]
+        query_embed /= np.sqrt((query_embed * query_embed).sum())
+        class_idx = np.matmul(query_embed, self.embeds.T).argmax()
+        qeury_class = self.config_classification['classes'][class_idx]
 
         image = base64_to_image(image_str)
         mask = self.segmentator(image)['mask'].astype('float32')
@@ -88,9 +88,9 @@ class Handler(object):
 
         emojies_gen = self.rudalle(target, images_num=len(query_idxs))['images']
 
-        for idx in query_idxs:
+        for i, idx in enumerate(query_idxs):
             bbox = bboxes[idx]
-            emoji_gen = emojies_gen[idx]
+            emoji_gen = emojies_gen[i]
             emoji_gen = cv2.resize(emoji_gen, (bbox[3] - bbox[1], bbox[2] - bbox[0]))
             image[bbox[0]: bbox[2], bbox[1]: bbox[3], :] = emoji_gen
 
