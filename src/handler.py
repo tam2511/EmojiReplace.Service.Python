@@ -70,17 +70,13 @@ class Handler(object):
 
         mask = cv2.resize(mask, (image.shape[1], image.shape[0]))
 
-        cv2.imwrite('/mnt/assets/models/test.jpg', mask.astype('uint8') * 255)
         label_mask = label(mask)
         props = regionprops(label_mask)
 
         bboxes = [prop.bbox for prop in props]
         emojies = [image[bbox[0]: bbox[2], bbox[1]: bbox[3], :] for bbox in bboxes]
-        logging.error(bboxes)
 
         classes = [self.classificator(emoji)['class'] for emoji in emojies]
-        logging.error(classes)
-        logging.error(qeury_class)
         query_idxs = [idx for idx in range(len(classes)) if classes[idx] == qeury_class]
         logging.error(query_idxs)
         if len(query_idxs) == 0:
